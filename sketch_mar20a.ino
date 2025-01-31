@@ -16,17 +16,17 @@ Adafruit_ADS1115 ads;
 
 float voltage, ecValue, temperature = 25;
 
-String apiKey = "YE4Z7VI9CCW4TW1D"; // Enter your Write API key from ThingSpeak
+String apiKey = "YE4Z7VI9CCW4TW1D"; 
 
-const char *ssid = "Pixel 7"; // replace with your WiFi SSID
-const char *pass = "sohan141296"; // replace with your WiFi password
+const char *ssid = "Pixel 7"; 
+const char *pass = "sohan141296"; 
 const char *server = "api.thingspeak.com";
 
 WiFiClient client;
 
 void setup() {
   Serial.begin(115200);
-  EEPROM.begin(32); // Initialize EEPROM to store calibration k
+  EEPROM.begin(32); 
   ec.begin();
   sensors.begin();
 
@@ -43,11 +43,10 @@ void setup() {
 }
 
 void loop() {
-  voltage = analogRead(A0); // A0 is GPIO pin 36
+  voltage = analogRead(A0); 
   sensors.requestTemperatures();
-  temperature = sensors.getTempCByIndex(0); // Read temperature sensor to execute temperature compensation
-  ecValue = ec.readEC(voltage, temperature); // Convert voltage to EC with temperature compensation
-
+  temperature = sensors.getTempCByIndex(0); 
+  ecValue = ec.readEC(voltage, temperature); 
   Serial.print("Temperature:");
   Serial.print(temperature, 2);
   Serial.println("ºC");
@@ -55,7 +54,6 @@ void loop() {
   Serial.print("EC:");
   Serial.println(ecValue, 2);
 
-  // Update ThingSpeak channel with temperature and EC values
   if (client.connect(server, 80)) {
     String postStr = apiKey;
     postStr += "&field1=";
@@ -74,9 +72,9 @@ void loop() {
     client.print("\n\n");
     client.print(postStr);
 
-    delay(500); // Delay before closing connection
+    delay(500); 
   }
   client.stop();
 
-  delay(1500); // Delay between updates
+  delay(1500); 
 }
