@@ -7,7 +7,7 @@
 #include <Adafruit_ADS1015.h>
 #include <DFRobot_ESP_EC.h>
 
-#define ONE_WIRE_BUS 14 // GPIO pin 14 on ESP32 for OneWire temperature sensor
+#define ONE_WIRE_BUS 14 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
